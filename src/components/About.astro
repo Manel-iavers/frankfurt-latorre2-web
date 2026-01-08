@@ -1,0 +1,148 @@
+---
+
+---
+
+<section class="about section" id="nosaltres">
+  <div class="container">
+    <div class="about-content">
+      <div class="about-text">
+        <h2 class="section-title text-left">
+          Sobre <span class="text-primary">Nosaltres</span>
+        </h2>
+        <p class="about-lead">
+          Des de 1992, el Frankfurt La Torre 2 ens hem convertit en un clàssic
+          per a amants dels entrepans i les hamburgueses a Pineda de Mar.
+        </p>
+        <p>
+          Amb una ubicació cèntrica i una atmosfera acollidora i relaxada, oferim
+          entrepans i tapes senzilles però delicioses, elaborades amb ingredients
+          de qualitat i un servei amable que et farà sentir com a casa. Ambient
+          familiar que es va renovant amb cada generació. I com molts de vosaltres dieu, sempre amb bona música.
+        </p>
+        <p>
+          La nostra especialitat són les hamburgueses casolanes i els entrepans
+          acompanyats de patates braves amb la salsa feta a casa, una combinació
+          que molts clients consideren entre les millors de la zona. Han passat
+          ja molts anys, però sempre mantenim l'essència d'un lloc de confiança
+          per fer una mossegada saborosa a bon preu.
+        </p>
+        <p>
+          Ens agrada que cada visita sigui una experiència positiva amb atenció
+          propera, plats clàssics i un ambient de barri. Volem ser la teva parada
+          de referència quan pensis en un sopar informal a Pineda de Mar.
+        </p>
+
+        <div class="about-features">
+          <div class="feature">
+            <div class="feature-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/>
+                <path d="m9 12 2 2 4-4"/>
+              </svg>
+            </div>
+            <span>Ambient familiar</span>
+          </div>
+          <div class="feature">
+            <div class="feature-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/>
+                <path d="m9 12 2 2 4-4"/>
+              </svg>
+            </div>
+            <span>+30 anys d'experiència</span>
+          </div>
+          <div class="feature">
+            <div class="feature-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/>
+                <path d="m9 12 2 2 4-4"/>
+              </svg>
+            </div>
+            <span>Salsa brava casolana</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="about-image">
+        <img src="/logo1Web.png" alt="La Torre 2 - Des de 1992" class="about-logo" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .about {
+    background: var(--color-light);
+  }
+
+  .about-content {
+    display: grid;
+    gap: var(--spacing-lg);
+    align-items: center;
+  }
+
+  @media (min-width: 768px) {
+    .about-content {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .text-left {
+    text-align: left;
+  }
+
+  .about-lead {
+    font-size: 1.25rem;
+    font-weight: 500;
+    color: var(--color-dark);
+    margin-bottom: var(--spacing-sm);
+  }
+
+  .about-text p {
+    color: var(--color-gray);
+    margin-bottom: 1rem;
+  }
+
+  .about-features {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    margin-top: var(--spacing-md);
+  }
+
+  .feature {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .feature-icon {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--color-white);
+    border-radius: var(--radius-full);
+    color: var(--color-primary);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .feature span {
+    font-weight: 600;
+    color: var(--color-accent);
+  }
+
+  .about-image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: var(--spacing-md);
+  }
+
+  .about-logo {
+    max-width: 350px;
+    width: 100%;
+    height: auto;
+  }
+</style>

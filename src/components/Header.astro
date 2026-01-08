@@ -1,0 +1,212 @@
+---
+interface Props {
+  ctaUrl?: string;
+}
+
+const { ctaUrl = "#" } = Astro.props;
+---
+
+<header class="header">
+  <div class="container header-content">
+    <a href="/" class="logo">
+      <img src="/faviconWeb.png" alt="La Torre 2" class="logo-img" />
+      <span class="logo-text">La Torre 2</span>
+    </a>
+    <nav class="nav" id="main-nav">
+      <a href="#productes" class="nav-link">Carta</a>
+      <a href="#nosaltres" class="nav-link">Nosaltres</a>
+      <a href="#contacte" class="nav-link">Contacte</a>
+      <a href={ctaUrl} class="btn btn-primary btn-sm">Fer Comanda</a>
+    </nav>
+    <button class="menu-toggle" aria-label="Obrir menu" aria-expanded="false">
+      <span class="menu-icon"></span>
+    </button>
+  </div>
+
+  <!-- Mobile menu -->
+  <nav class="nav-mobile" id="mobile-nav">
+    <a href="#productes" class="nav-link">Carta</a>
+    <a href="#nosaltres" class="nav-link">Nosaltres</a>
+    <a href="#contacte" class="nav-link">Contacte</a>
+    <a href={ctaUrl} class="btn btn-primary">Fer Comanda</a>
+  </nav>
+</header>
+
+<style>
+  .header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    background-color: var(--color-white);
+    padding: 0.75rem 0;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  }
+
+  .header-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    text-decoration: none;
+  }
+
+  .logo-img {
+    width: 50px;
+    height: 50px;
+    object-fit: contain;
+  }
+
+  .logo-text {
+    font-family: var(--font-heading);
+    font-size: 1.25rem;
+    color: var(--color-accent);
+    display: none;
+  }
+
+  @media (min-width: 768px) {
+    .logo-text {
+      display: block;
+    }
+  }
+
+  .nav {
+    display: none;
+    align-items: center;
+    gap: 2rem;
+  }
+
+  @media (min-width: 768px) {
+    .nav {
+      display: flex;
+    }
+  }
+
+  .nav-link {
+    color: var(--color-accent);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: color var(--transition-fast);
+  }
+
+  .nav-link:hover {
+    color: var(--color-primary);
+  }
+
+  .btn-sm {
+    padding: 0.75rem 1.5rem;
+    font-size: 0.875rem;
+  }
+
+  .menu-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    z-index: 101;
+  }
+
+  @media (min-width: 768px) {
+    .menu-toggle {
+      display: none;
+    }
+  }
+
+  .menu-icon,
+  .menu-icon::before,
+  .menu-icon::after {
+    display: block;
+    width: 24px;
+    height: 3px;
+    background-color: var(--color-accent);
+    border-radius: 2px;
+    transition: all var(--transition-fast);
+  }
+
+  .menu-icon {
+    position: relative;
+  }
+
+  .menu-icon::before,
+  .menu-icon::after {
+    content: '';
+    position: absolute;
+    left: 0;
+  }
+
+  .menu-icon::before {
+    top: -8px;
+  }
+
+  .menu-icon::after {
+    top: 8px;
+  }
+
+  /* Mobile nav */
+  .nav-mobile {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 2rem;
+    background: var(--color-white);
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+  }
+
+  .nav-mobile.open {
+    display: flex;
+  }
+
+  @media (min-width: 768px) {
+    .nav-mobile {
+      display: none !important;
+    }
+  }
+
+  /* Menu toggle active state */
+  .menu-toggle.active .menu-icon {
+    background: transparent;
+  }
+
+  .menu-toggle.active .menu-icon::before {
+    top: 0;
+    transform: rotate(45deg);
+  }
+
+  .menu-toggle.active .menu-icon::after {
+    top: 0;
+    transform: rotate(-45deg);
+  }
+</style>
+
+<script>
+  const menuToggle = document.querySelector('.menu-toggle');
+  const mobileNav = document.querySelector('.nav-mobile');
+
+  menuToggle?.addEventListener('click', () => {
+    const isExpanded = menuToggle.getAttribute('aria-expanded') === 'true';
+    menuToggle.setAttribute('aria-expanded', String(!isExpanded));
+    menuToggle.classList.toggle('active');
+    mobileNav?.classList.toggle('open');
+  });
+
+  // Close menu when clicking a link
+  document.querySelectorAll('.nav-mobile .nav-link').forEach(link => {
+    link.addEventListener('click', () => {
+      menuToggle?.classList.remove('active');
+      mobileNav?.classList.remove('open');
+      menuToggle?.setAttribute('aria-expanded', 'false');
+    });
+  });
+</script>

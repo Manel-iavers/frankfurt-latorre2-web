@@ -1,0 +1,198 @@
+---
+interface Props {
+  ctaUrl?: string;
+}
+
+const { ctaUrl = "#" } = Astro.props;
+---
+
+<section class="hero" id="hero">
+  <div class="hero-bg">
+    <img src="/logo1Web.png" alt="" class="hero-bg-logo" aria-hidden="true" />
+  </div>
+  <div class="container hero-content">
+    <div class="hero-text">
+      <p class="hero-badge">Des de 1992</p>
+      <h1 class="hero-title">
+        La Torre 2<br />
+        <span class="text-primary">Frankfurt</span>
+      </h1>
+      <p class="hero-subtitle">Les millors burgers casolanes de Pineda</p>
+      <p class="hero-description">
+        A La Torre 2 preparem hamburgueses casolanes i entrepans amb productes de qualitat,
+        apostant per proveïdors locals. La nostra salsa brava és
+        casolana. Fes la teva comanda online i recull-la al local.
+      </p>
+      <div class="hero-cta">
+        <a href={ctaUrl} class="btn btn-primary btn-lg">
+          Fer Comanda
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M5 12h14M12 5l7 7-7 7"/>
+          </svg>
+        </a>
+        <a href="#productes" class="btn btn-secondary">Veure Carta</a>
+      </div>
+    </div>
+    <div class="hero-image">
+      <img src="/ninotfrankfurtWeb.png" alt="Mascota Frankfurt La Torre 2" class="mascot" />
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding-top: 100px;
+    padding-bottom: var(--spacing-lg);
+    background: var(--color-light);
+    overflow: hidden;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    overflow: hidden;
+  }
+
+  .hero-bg-logo {
+    width: 80%;
+    max-width: 800px;
+    height: auto;
+    opacity: 0.06;
+    transform: rotate(-5deg);
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    gap: var(--spacing-md);
+    align-items: center;
+  }
+
+  @media (min-width: 768px) {
+    .hero-content {
+      grid-template-columns: 1fr 1fr;
+      gap: var(--spacing-lg);
+    }
+  }
+
+  .hero-text {
+    text-align: center;
+  }
+
+  @media (min-width: 768px) {
+    .hero-text {
+      text-align: left;
+    }
+  }
+
+  .hero-badge {
+    display: inline-block;
+    background: var(--color-primary);
+    color: var(--color-white);
+    padding: 0.5rem 1rem;
+    border-radius: var(--radius-full);
+    font-size: 0.875rem;
+    font-weight: 700;
+    margin-bottom: var(--spacing-sm);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .hero-title {
+    font-size: clamp(2.5rem, 6vw, 4rem);
+    color: var(--color-accent);
+    margin-bottom: var(--spacing-sm);
+    line-height: 1.1;
+  }
+
+  .hero-title .text-primary {
+    color: var(--color-primary);
+  }
+
+  .hero-subtitle {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--color-accent);
+    margin-bottom: var(--spacing-sm);
+    opacity: 0.8;
+  }
+
+  .hero-description {
+    color: var(--color-gray);
+    font-size: 1.125rem;
+    margin-bottom: var(--spacing-md);
+    max-width: 500px;
+  }
+
+  @media (min-width: 768px) {
+    .hero-description {
+      margin-left: 0;
+      margin-right: auto;
+    }
+  }
+
+  .hero-cta {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    align-items: center;
+  }
+
+  @media (min-width: 768px) {
+    .hero-cta {
+      flex-direction: row;
+      justify-content: flex-start;
+    }
+  }
+
+  .btn-lg {
+    padding: 1.25rem 2.5rem;
+    font-size: 1.125rem;
+  }
+
+  .btn-lg svg {
+    transition: transform var(--transition-fast);
+  }
+
+  .btn-lg:hover svg {
+    transform: translateX(4px);
+  }
+
+  .hero-image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .mascot {
+    max-width: 350px;
+    width: 100%;
+    height: auto;
+    animation: float 3s ease-in-out infinite;
+    filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.15));
+  }
+
+  @media (min-width: 768px) {
+    .mascot {
+      max-width: 400px;
+    }
+  }
+
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-15px);
+    }
+  }
+</style>

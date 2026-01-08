@@ -1,0 +1,137 @@
+---
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const {
+  title,
+  description = "Frankfurt la Torre 2 - Els millors frankfurts de Pineda de Mar. Fes la teva comanda online i recull al local."
+} = Astro.props;
+
+const siteUrl = "https://frankfurtlatorre2.com";
+
+// Schema.org per Restaurant Local
+const schemaOrg = {
+  "@context": "https://schema.org",
+  "@type": "Restaurant",
+  "name": "La Torre 2 Frankfurt",
+  "description": description,
+  "url": siteUrl,
+  "telephone": "+34687985175",
+  "email": "latorre2frankfurt@gmail.com",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Plaça Estació, 1",
+    "addressLocality": "Pineda de Mar",
+    "postalCode": "08397",
+    "addressCountry": "ES"
+  },
+  "foundingDate": "1992",
+  "servesCuisine": ["Hamburgueses", "Frankfurts", "Entrepans", "Fast Food"],
+  "priceRange": "€",
+  "openingHoursSpecification": {
+    "@type": "OpeningHoursSpecification",
+    "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+    "opens": "18:00",
+    "closes": "23:00"
+  }
+};
+
+// Schema.org FAQ per SEO
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Quines hamburgueses feu a La Torre 2?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Fem hamburgueses casolanes amb carn fresca de la Carnisseria del Carme de Pineda. Servim amb pa mollete especial de La Fleca del Gourmet. Pots afegir formatge, bacó, ou o ceba."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Teniu menjar per emportar?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Sí! Pots fer la comanda per telèfon al 687 985 175 o per SmartMenu i recollir-la al local. Estem a Plaça Estació 1, Pineda de Mar."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Quin horari teniu?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Estem oberts cada dia de 18:00 a 23:00. La cuina tanca a les 23h."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Teniu opcions vegetarianes?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Sí, tenim l'entrepà de formatge amb ceba caramel·litzada i també el de truita. També pots demanar qualsevol entrepà sense carn afegint els suplements que vulguis."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Teniu pa sense gluten?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No disposem de pa sense gluten, però els nostres clients amb intolerància lleu ens porten el seu pa i els preparem l'entrepà amb molt de gust."
+      }
+    }
+  ]
+};
+---
+
+<!doctype html>
+<html lang="ca">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+
+    <!-- SEO -->
+    <link rel="canonical" href={siteUrl} />
+    <meta name="robots" content="index, follow" />
+    <meta name="author" content="Frankfurt la Torre 2" />
+    <meta name="geo.region" content="ES-CT" />
+    <meta name="geo.placename" content="Pineda de Mar" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="/faviconWeb.png" />
+    <link rel="apple-touch-icon" href="/faviconWeb.png" />
+
+    <!-- Open Graph -->
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={siteUrl} />
+    <meta property="og:locale" content="ca_ES" />
+    <meta property="og:site_name" content="Frankfurt la Torre 2" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+
+    <!-- Theme Color -->
+    <meta name="theme-color" content="#1E3A5F" />
+
+    <!-- Schema.org -->
+    <script type="application/ld+json" set:html={JSON.stringify(schemaOrg)} />
+    <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+
+    <title>{title}</title>
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>
+
+<style is:global>
+  @import '../styles/global.css';
+</style>

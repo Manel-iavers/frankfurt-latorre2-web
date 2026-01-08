@@ -1,0 +1,162 @@
+---
+// Modal que es mostra quan SmartMenu encara no està configurat
+---
+
+<div id="coming-soon-modal" class="modal" aria-hidden="true">
+  <div class="modal-backdrop"></div>
+  <div class="modal-content">
+    <button class="modal-close" aria-label="Tancar">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="18" y1="6" x2="6" y2="18"></line>
+        <line x1="6" y1="6" x2="18" y2="18"></line>
+      </svg>
+    </button>
+
+    <div class="modal-icon">
+      <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="10"></circle>
+        <polyline points="12 6 12 12 16 14"></polyline>
+      </svg>
+    </div>
+
+    <h3>Molt aviat!</h3>
+    <p>El sistema de comandes online estarà disponible properament.</p>
+    <p class="modal-cta">Mentrestant, truca'ns per fer la teva comanda:</p>
+
+    <a href="tel:+34687985175" class="btn btn-primary">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+      </svg>
+      687 985 175
+    </a>
+  </div>
+</div>
+
+<script>
+  // Intercepta clics als botons de comanda quan l'URL és "#"
+  document.addEventListener('DOMContentLoaded', () => {
+    const modal = document.getElementById('coming-soon-modal');
+    const closeBtn = modal?.querySelector('.modal-close');
+    const backdrop = modal?.querySelector('.modal-backdrop');
+
+    // Troba tots els links amb href="#" que contenen "Comanda" o són CTA
+    const orderLinks = document.querySelectorAll('a[href="#"]');
+
+    orderLinks.forEach(link => {
+      const text = link.textContent?.toLowerCase() || '';
+      if (text.includes('comanda') || link.classList.contains('floating-cta-button')) {
+        link.addEventListener('click', (e) => {
+          e.preventDefault();
+          modal?.classList.add('active');
+          document.body.style.overflow = 'hidden';
+        });
+      }
+    });
+
+    // Tanca el modal
+    const closeModal = () => {
+      modal?.classList.remove('active');
+      document.body.style.overflow = '';
+    };
+
+    closeBtn?.addEventListener('click', closeModal);
+    backdrop?.addEventListener('click', closeModal);
+
+    // Tanca amb Escape
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && modal?.classList.contains('active')) {
+        closeModal();
+      }
+    });
+  });
+</script>
+
+<style>
+  .modal {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+  }
+
+  .modal.active {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .modal-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(4px);
+  }
+
+  .modal-content {
+    position: relative;
+    background: var(--color-white);
+    border-radius: var(--radius-lg);
+    padding: 2.5rem;
+    max-width: 400px;
+    width: 100%;
+    text-align: center;
+    transform: scale(0.9);
+    transition: transform 0.3s ease;
+    box-shadow: var(--shadow-lg);
+  }
+
+  .modal.active .modal-content {
+    transform: scale(1);
+  }
+
+  .modal-close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: none;
+    border: none;
+    color: var(--color-gray);
+    cursor: pointer;
+    padding: 0.25rem;
+    transition: color var(--transition-fast);
+  }
+
+  .modal-close:hover {
+    color: var(--color-accent);
+  }
+
+  .modal-icon {
+    color: var(--color-primary);
+    margin-bottom: 1rem;
+  }
+
+  .modal-content h3 {
+    font-family: var(--font-heading);
+    font-size: 1.75rem;
+    color: var(--color-accent);
+    margin-bottom: 0.75rem;
+  }
+
+  .modal-content p {
+    color: var(--color-gray);
+    margin-bottom: 0.5rem;
+  }
+
+  .modal-cta {
+    font-weight: 600;
+    color: var(--color-dark) !important;
+    margin-top: 1rem !important;
+    margin-bottom: 1rem !important;
+  }
+
+  .modal-content .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+</style>

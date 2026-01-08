@@ -1,0 +1,31 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Hero from '../components/Hero.astro';
+import ProductsSection from '../components/ProductsSection.astro';
+import About from '../components/About.astro';
+import FAQ from '../components/FAQ.astro';
+import Contact from '../components/Contact.astro';
+import Footer from '../components/Footer.astro';
+import FloatingCTA from '../components/FloatingCTA.astro';
+import ComingSoonModal from '../components/ComingSoonModal.astro';
+import VacationBanner from '../components/VacationBanner.astro';
+import { siteConfig } from '../config/site';
+
+const { smartMenuUrl, vacation } = siteConfig;
+---
+
+<Layout title="Frankfurt la Torre 2 | Els millors frankfurts de Pineda de Mar">
+  {vacation.enabled && <VacationBanner returnDate={vacation.returnDate} message={vacation.message} />}
+  <Header ctaUrl={smartMenuUrl} />
+  <main>
+    <Hero ctaUrl={smartMenuUrl} />
+    <ProductsSection />
+    <About />
+    <FAQ />
+    <Contact />
+  </main>
+  <Footer />
+  <FloatingCTA ctaUrl={smartMenuUrl} />
+  <ComingSoonModal />
+</Layout>

@@ -1,0 +1,180 @@
+---
+
+---
+
+<footer class="footer">
+  <div class="container footer-content">
+    <div class="footer-brand">
+      <img src="/faviconWeb.png" alt="La Torre 2" class="footer-logo" />
+      <div class="footer-info">
+        <span class="footer-name">La Torre 2 Frankfurt</span>
+        <span class="footer-since">Des de 1992</span>
+      </div>
+    </div>
+
+    <div class="footer-details">
+      <div class="footer-contact">
+        <a href="tel:+34687985175">687 985 175</a>
+        <span class="separator">|</span>
+        <a href="mailto:latorre2frankfurt@gmail.com">latorre2frankfurt@gmail.com</a>
+      </div>
+      <div class="footer-hours">
+        <span>Obert cada dia: 18h - 23h</span>
+      </div>
+    </div>
+
+    <div class="footer-social">
+      <a href="https://www.instagram.com/frankfurtlatorre2?igsh=MWpyb2JsbWJhd3Zj" class="social-link" aria-label="Instagram" target="_blank" rel="noopener">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+          <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+          <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+        </svg>
+      </a>
+    </div>
+
+    <p class="footer-seo">
+      Frankfurt i hamburgueseria a Pineda de Mar especialitzada en burgers casolanes, entrepans de qualitat i salsa brava feta a casa.
+    </p>
+    <p class="footer-copyright">
+      2026 La Torre 2 Frankfurt. Tots els drets reservats.
+    </p>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    background: var(--color-dark);
+    padding: var(--spacing-md) 0;
+  }
+
+  .footer-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    text-align: center;
+  }
+
+  @media (min-width: 768px) {
+    .footer-content {
+      flex-direction: row;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      text-align: left;
+    }
+  }
+
+  .footer-brand {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .footer-logo {
+    width: 50px;
+    height: 50px;
+    object-fit: contain;
+  }
+
+  .footer-info {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .footer-name {
+    font-family: var(--font-heading);
+    color: var(--color-white);
+    font-size: 1rem;
+  }
+
+  .footer-since {
+    color: var(--color-primary);
+    font-size: 0.875rem;
+  }
+
+  .footer-details {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  @media (min-width: 768px) {
+    .footer-details {
+      align-items: flex-start;
+    }
+  }
+
+  .footer-contact {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .footer-contact a {
+    color: rgba(255, 255, 255, 0.8);
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: color var(--transition-fast);
+  }
+
+  .footer-contact a:hover {
+    color: var(--color-primary);
+  }
+
+  .separator {
+    color: rgba(255, 255, 255, 0.3);
+  }
+
+  .footer-hours {
+    color: var(--color-primary);
+    font-size: 0.875rem;
+    font-weight: 500;
+  }
+
+  .footer-social {
+    display: flex;
+    gap: 1rem;
+  }
+
+  .social-link {
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: var(--radius-md);
+    color: var(--color-white);
+    transition: all var(--transition-fast);
+  }
+
+  .social-link:hover {
+    background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+    color: var(--color-white);
+    transform: translateY(-2px);
+  }
+
+  .footer-seo {
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.6);
+    margin: 0;
+    width: 100%;
+    text-align: center;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    line-height: 1.5;
+  }
+
+  .footer-copyright {
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.5);
+    margin: 0;
+    width: 100%;
+    text-align: center;
+    padding-top: 0.5rem;
+  }
+</style>

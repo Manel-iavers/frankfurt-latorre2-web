@@ -1,0 +1,439 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import FloatingCTA from '../components/FloatingCTA.astro';
+import ComingSoonModal from '../components/ComingSoonModal.astro';
+import VacationBanner from '../components/VacationBanner.astro';
+import { siteConfig } from '../config/site';
+
+const { smartMenuUrl, vacation } = siteConfig;
+
+// Tots els entrepans amb descripcions i preus reals
+const entrepans = [
+  {
+    name: "Frankfurt",
+    description: "El nostre deliciós frankfurt de Casa Vallès. El pa és l'especial flauta extrem que ens serveix La Fleca del Gourmet de Pineda.",
+    priceInterior: "3,75€",
+    priceTerrace: "4,00€",
+    image: "/images/frankfurtweb.png"
+  },
+  {
+    name: "Burguer",
+    description: "La reina de la casa, ja la coneixeu. No calen presentacions! Feta per nosaltres amb la carn de la Carnisseria del Carme. Pa mollete especial de La Fleca del Gourmet.",
+    priceInterior: "5,00€",
+    priceTerrace: "5,25€",
+    image: "/images/burguerWeb.png",
+    badge: "Estrella"
+  },
+  {
+    name: "Pit de Pollastre",
+    description: "Filets de pit de pollastre de la Carnisseria del Carme a Pineda. Pa flauta extrem de La Fleca del Gourmet.",
+    priceInterior: "4,25€",
+    priceTerrace: "4,50€",
+    image: "/images/pollastreWeb.png",
+    badge: "Popular"
+  },
+  {
+    name: "Pinxos",
+    description: "Què us hem d'explicar dels pinxos brutals que ens porten de la Carnisseria del Carme! Pa flauta extrem de La Fleca del Gourmet.",
+    priceInterior: "4,25€",
+    priceTerrace: "4,50€",
+    image: "/images/pinxoWeb.png"
+  },
+  {
+    name: "Pikantwurst",
+    description: "El nostre deliciós Pikantwurst de Casa Vallès. Pa flauta extrem de La Fleca del Gourmet.",
+    priceInterior: "4,25€",
+    priceTerrace: "4,50€",
+    image: "/images/pikantWeb.png"
+  },
+  {
+    name: "Bratwurst",
+    description: "El nostre deliciós Bratwurst de Casa Vallès. Pa flauta extrem de La Fleca del Gourmet.",
+    priceInterior: "4,25€",
+    priceTerrace: "4,50€",
+    image: "/images/bratwurstWeb.png"
+  },
+  {
+    name: "Llom",
+    description: "Filets de llom de porc de la Carnisseria del Carme a Pineda. Pa flauta extrem de La Fleca del Gourmet.",
+    priceInterior: "4,25€",
+    priceTerrace: "4,50€",
+    image: "/images/llomWeb.png"
+  },
+  {
+    name: "Cervela",
+    description: "La nostra deliciosa cervela de Casa Vallès. Pa flauta extrem de La Fleca del Gourmet.",
+    priceInterior: "4,25€",
+    priceTerrace: "4,50€",
+    image: "/images/cervelaweb.png"
+  },
+  {
+    name: "Bikini",
+    description: "A l'estranger l'anomenen mixto.",
+    priceInterior: "4,25€",
+    priceTerrace: "4,50€",
+    image: "/images/bikiniWeb.png"
+  },
+  {
+    name: "Bacó",
+    description: "Roses are red, Bacon is red, Poems are hard... BACON!",
+    priceInterior: "4,25€",
+    priceTerrace: "4,50€",
+    image: "/images/bacoWeb.png"
+  },
+  {
+    name: "Krakosky (Choripan)",
+    description: "Voleu xoriço? El de Casa Vallès. Pa flauta extrem de La Fleca del Gourmet.",
+    priceInterior: "4,25€",
+    priceTerrace: "4,50€",
+    image: "/images/xoriWeb.png"
+  },
+  {
+    name: "Malaguenya",
+    description: "La nostra deliciosa Malaguenya de Casa Vallès. Pa flauta extrem de La Fleca del Gourmet.",
+    priceInterior: "4,00€",
+    priceTerrace: "4,25€",
+    image: "/images/malaguenyaWeb.png"
+  },
+  {
+    name: "Formatge amb ceba",
+    description: "Opció vegetariana.",
+    priceInterior: "4,25€",
+    priceTerrace: "4,50€",
+    image: "/images/formatgeWeb.png",
+    badge: "Veggie"
+  },
+  {
+    name: "Truita",
+    description: "No de riu.",
+    priceInterior: "4,25€",
+    priceTerrace: "4,50€",
+    image: "/images/truitaWeb.png"
+  }
+];
+
+const perPicar = [
+  { name: "Patates Braves", priceInterior: "4,00€", priceTerrace: "4,25€" },
+  { name: "Patates Fregides", priceInterior: "4,00€", priceTerrace: "4,25€" },
+  { name: "Calamars", priceInterior: "7,00€", priceTerrace: "7,25€" },
+  { name: "Croquetes de rostit (4u)", priceInterior: "4,00€", priceTerrace: "4,25€" },
+  { name: "Nuggets (8u)", priceInterior: "4,00€", priceTerrace: "4,25€" },
+  { name: "Fot-li Morro", priceInterior: "3,00€", priceTerrace: "3,25€" }
+];
+
+const suplements = [
+  { name: "Formatge", price: "+1,00€" },
+  { name: "Bacó", price: "+0,75€" },
+  { name: "Ou", price: "+0,75€" },
+  { name: "Ceba", price: "+0,50€" },
+  { name: "Tomàquet", price: "+0,50€" }
+];
+---
+
+<Layout title="Carta | La Torre 2 Frankfurt" description="Descobreix la nostra carta completa d'entrepans, frankfurts i acompanyaments. Productes de qualitat des de 1992.">
+  {vacation.enabled && <VacationBanner returnDate={vacation.returnDate} message={vacation.message} />}
+  <Header ctaUrl={smartMenuUrl} />
+
+  <main class="carta-page">
+    <section class="carta-hero">
+      <div class="container">
+        <h1>La Nostra <span class="text-primary">Carta</span></h1>
+        <p>Productes de qualitat, elaborats amb ingredients frescos de proveïdors locals</p>
+      </div>
+    </section>
+
+    <section class="entrepans section">
+      <div class="container">
+        <h2 class="section-title">Entrepans</h2>
+        <p class="price-note">Preus Interior / Terrassa (+0,25€ suplement terrassa)</p>
+
+        <div class="entrepans-grid">
+          {entrepans.map((item) => (
+            <article class="entrepan-card">
+              {item.badge && <span class={`badge badge-${item.badge.toLowerCase()}`}>{item.badge}</span>}
+              <div class="entrepan-image">
+                <img src={item.image} alt={item.name} loading="lazy" />
+              </div>
+              <div class="entrepan-info">
+                <h3>{item.name}</h3>
+                <p class="entrepan-desc">{item.description}</p>
+                <div class="entrepan-prices">
+                  <span class="price-interior">{item.priceInterior}</span>
+                  <span class="price-separator">/</span>
+                  <span class="price-terrace">{item.priceTerrace}</span>
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="extras section">
+      <div class="container">
+        <div class="extras-grid">
+          <div class="extras-block">
+            <h2>Per Picar</h2>
+            <p class="extras-note">Interior / Terrassa (+0,25€)</p>
+            <ul class="extras-list">
+              {perPicar.map((item) => (
+                <li>
+                  <span>{item.name}</span>
+                  <span class="extra-prices">
+                    <span class="extra-price">{item.priceInterior}</span>
+                    <span class="price-sep">/</span>
+                    <span class="extra-price-terrace">{item.priceTerrace}</span>
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div class="extras-block suplements-block">
+            <h2>Suplements</h2>
+            <ul class="extras-list">
+              {suplements.map((item) => (
+                <li>
+                  <span>{item.name}</span>
+                  <span class="extra-price">{item.price}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+  <FloatingCTA ctaUrl={smartMenuUrl} />
+  <ComingSoonModal />
+</Layout>
+
+<style>
+  .carta-page {
+    padding-top: 80px;
+  }
+
+  .carta-hero {
+    background: var(--color-accent);
+    color: var(--color-white);
+    padding: var(--spacing-lg) 0;
+    text-align: center;
+  }
+
+  .carta-hero h1 {
+    color: var(--color-white);
+    margin-bottom: var(--spacing-sm);
+  }
+
+  .carta-hero p {
+    opacity: 0.9;
+    font-size: 1.125rem;
+    margin: 0;
+  }
+
+  .section-title {
+    text-align: center;
+    margin-bottom: var(--spacing-sm);
+  }
+
+  .price-note {
+    text-align: center;
+    color: var(--color-gray);
+    font-size: 0.9rem;
+    margin-bottom: var(--spacing-lg);
+  }
+
+  /* Entrepans Grid */
+  .entrepans {
+    background: var(--color-light);
+  }
+
+  .entrepans-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .entrepan-card {
+    position: relative;
+    background: var(--color-white);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+    transition: all var(--transition-normal);
+    display: flex;
+    flex-direction: column;
+  }
+
+  .entrepan-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .badge {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    padding: 0.35rem 0.85rem;
+    border-radius: var(--radius-full);
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    z-index: 1;
+  }
+
+  .badge-estrella {
+    background: #FFD700;
+    color: var(--color-dark);
+  }
+
+  .badge-popular {
+    background: var(--color-primary);
+    color: var(--color-white);
+  }
+
+  .badge-veggie {
+    background: #4CAF50;
+    color: var(--color-white);
+  }
+
+  .entrepan-image {
+    aspect-ratio: 16/10;
+    background: linear-gradient(135deg, var(--color-light) 0%, #fff 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+  }
+
+  .entrepan-image img {
+    max-width: 80%;
+    max-height: 100%;
+    object-fit: contain;
+    transition: transform var(--transition-normal);
+  }
+
+  .entrepan-card:hover .entrepan-image img {
+    transform: scale(1.08);
+  }
+
+  .entrepan-info {
+    padding: 1.5rem;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .entrepan-info h3 {
+    font-family: var(--font-heading);
+    font-size: 1.25rem;
+    color: var(--color-accent);
+    margin-bottom: 0.5rem;
+  }
+
+  .entrepan-desc {
+    font-size: 0.9rem;
+    color: var(--color-gray);
+    line-height: 1.5;
+    flex: 1;
+    margin-bottom: 1rem;
+  }
+
+  .entrepan-prices {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+  }
+
+  .price-interior {
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    color: var(--color-primary);
+  }
+
+  .price-separator {
+    color: var(--color-gray);
+  }
+
+  .price-terrace {
+    font-size: 1rem;
+    color: var(--color-gray);
+  }
+
+  /* Extras */
+  .extras {
+    background: var(--color-accent);
+    color: var(--color-white);
+  }
+
+  .extras h2 {
+    color: var(--color-white);
+    margin-bottom: var(--spacing-sm);
+    font-size: 1.5rem;
+  }
+
+  .extras-grid {
+    display: grid;
+    gap: var(--spacing-lg);
+  }
+
+  @media (min-width: 768px) {
+    .extras-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .extras-block {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-md);
+  }
+
+  .extras-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .extras-list li {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .extras-list li:last-child {
+    border-bottom: none;
+  }
+
+  .extra-price {
+    font-weight: 700;
+    color: var(--color-primary-light);
+  }
+
+  .extras-note {
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.6);
+    margin: 0 0 0.75rem 0;
+  }
+
+  .extra-prices {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+  }
+
+  .price-sep {
+    color: rgba(255, 255, 255, 0.4);
+  }
+
+  .extra-price-terrace {
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.6);
+  }
+</style>

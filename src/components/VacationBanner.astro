@@ -1,0 +1,89 @@
+---
+interface Props {
+  returnDate: string;  // Ex: "13 de Febrer"
+  message?: string;
+}
+
+const {
+  returnDate,
+  message = "Estem de vacances! Ens veiem aviat."
+} = Astro.props;
+---
+
+<div class="vacation-banner">
+  <div class="vacation-content">
+    <span class="vacation-icon"></span>
+    <div class="vacation-text">
+      <strong>{message}</strong>
+      <span class="vacation-return">Tornem el <strong>{returnDate}</strong></span>
+    </div>
+    <span class="vacation-icon"></span>
+  </div>
+</div>
+
+<style>
+  .vacation-banner {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 10000;
+    background: linear-gradient(135deg, var(--color-primary) 0%, #d94e0f 100%);
+    color: var(--color-white);
+    padding: 0.75rem 1rem;
+    text-align: center;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  }
+
+  .vacation-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .vacation-icon {
+    font-size: 1.5rem;
+  }
+
+  .vacation-text {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+  }
+
+  @media (min-width: 640px) {
+    .vacation-text {
+      flex-direction: row;
+      gap: 0.75rem;
+      align-items: center;
+    }
+  }
+
+  .vacation-text strong {
+    font-size: 1rem;
+  }
+
+  .vacation-return {
+    font-size: 0.9rem;
+    opacity: 0.95;
+  }
+
+  /* Offset per al header fix */
+  :global(body.vacation-mode) {
+    padding-top: 60px;
+  }
+
+  @media (max-width: 639px) {
+    :global(body.vacation-mode) {
+      padding-top: 80px;
+    }
+  }
+</style>
+
+<script>
+  document.body.classList.add('vacation-mode');
+</script>

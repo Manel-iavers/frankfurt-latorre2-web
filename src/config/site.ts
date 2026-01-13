@@ -36,7 +36,7 @@ export const siteConfig = {
   // GOOGLE ANALYTICS 4 - Canvia l'ID quan el tinguis
   // ===========================================
   analytics: {
-    gaId: "G-XXXXXXXXXX",  // Canvia per l'ID real de GA4
+    gaId: "G-78HVRXVX7D",
     enabled: true
   },
 

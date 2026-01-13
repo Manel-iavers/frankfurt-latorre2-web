@@ -1,0 +1,70 @@
+---
+/**
+ * Google Analytics 4 - Carrega condicionat al consentiment
+ *
+ * Aquest component:
+ * 1. NO carrega res per defecte
+ * 2. Escolta l'event 'cookie-consent-accepted'
+ * 3. Injecta els scripts de GA4 dinàmicament
+ */
+import { siteConfig } from '../config/site';
+
+interface Props {
+  gaId?: string;
+}
+
+const { gaId = siteConfig.analytics?.gaId } = Astro.props;
+const storageKey = siteConfig.cookies?.storageKey || 'cookie-consent-latorre2';
+
+// No renderitzar res si no hi ha ID vàlid
+const isValidId = gaId && gaId !== 'G-XXXXXXXXXX';
+---
+
+{isValidId && (
+  <script define:vars={{ gaId, storageKey }}>
+    (function() {
+      function loadGoogleAnalytics() {
+        // Evitar carregar múltiples vegades
+        if (window.gaLoaded) return;
+        window.gaLoaded = true;
+
+        // Crear script gtag.js
+        const script = document.createElement('script');
+        script.async = true;
+        script.src = `https://www.googletagmanager.com/gtag/js?id=${gaId}`;
+        document.head.appendChild(script);
+
+        // Inicialitzar dataLayer i gtag
+        window.dataLayer = window.dataLayer || [];
+        function gtag() {
+          window.dataLayer.push(arguments);
+        }
+        window.gtag = gtag;
+
+        gtag('js', new Date());
+        gtag('config', gaId, {
+          anonymize_ip: true,  // GDPR: anonimitzar IP
+          cookie_flags: 'SameSite=None;Secure'
+        });
+      }
+
+      // Comprovar si ja hi ha consentiment
+      function checkExistingConsent() {
+        const consent = localStorage.getItem(storageKey);
+        if (consent === 'accepted') {
+          loadGoogleAnalytics();
+        }
+      }
+
+      // Escoltar event de consentiment
+      window.addEventListener('cookie-consent-accepted', loadGoogleAnalytics);
+
+      // Comprovar al carregar la pàgina
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', checkExistingConsent);
+      } else {
+        checkExistingConsent();
+      }
+    })();
+  </script>
+)}

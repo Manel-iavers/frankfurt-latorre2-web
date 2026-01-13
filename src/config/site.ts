@@ -30,5 +30,21 @@ export const siteConfig = {
     postalCode: "08397",
     hours: "18:00 - 23:00",
     hoursNote: "Obert cada dia"
+  },
+
+  // ===========================================
+  // GOOGLE ANALYTICS 4 - Canvia l'ID quan el tinguis
+  // ===========================================
+  analytics: {
+    gaId: "G-XXXXXXXXXX",  // Canvia per l'ID real de GA4
+    enabled: true
+  },
+
+  // ===========================================
+  // COOKIES - Banner de consentiment
+  // ===========================================
+  cookies: {
+    enabled: true,
+    storageKey: "cookie-consent-latorre2"
   }
 };

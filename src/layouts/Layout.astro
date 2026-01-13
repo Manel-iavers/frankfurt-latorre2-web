@@ -1,4 +1,8 @@
 ---
+import GoogleAnalytics from '../components/GoogleAnalytics.astro';
+import CookieConsent from '../components/CookieConsent.astro';
+import { siteConfig } from '../config/site';
+
 interface Props {
   title: string;
   description?: string;
@@ -125,10 +129,16 @@ const faqSchema = {
     <script type="application/ld+json" set:html={JSON.stringify(schemaOrg)} />
     <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
 
+    <!-- Google Analytics 4 (condicionat al consentiment) -->
+    {siteConfig.analytics?.enabled && <GoogleAnalytics />}
+
     <title>{title}</title>
   </head>
   <body>
     <slot />
+
+    <!-- Cookie Consent Banner -->
+    {siteConfig.cookies?.enabled && <CookieConsent />}
   </body>
 </html>
 

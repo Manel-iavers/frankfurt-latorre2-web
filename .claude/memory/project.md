@@ -49,3 +49,7 @@ Clients del restaurant que volen fer comandes per recollir al local.
 - [ ] Fotos reals productes
 - [ ] Coordenades exactes mapa
 - [ ] Horaris
+
+## Historial
+### 2026-01-08 - Web millorada amb branding real, imatges i dades correctes. Pendent revisar localment.
+- 0 fitxers

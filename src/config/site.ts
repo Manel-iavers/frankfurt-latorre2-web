@@ -15,7 +15,7 @@ export const siteConfig = {
   // ===========================================
   // SMARTMENU - Canvia quan tinguis l'URL
   // ===========================================
-  smartMenuUrl: "#",  // Canvia "#" per l'URL real de SmartMenu
+  smartMenuUrl: "https://smartmenu.agorapos.com/?id=k4mrr39a&workplaceId=kfufktzc",
 
   // ===========================================
   // DADES DEL RESTAURANT

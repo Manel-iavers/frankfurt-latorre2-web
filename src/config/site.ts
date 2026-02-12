@@ -7,7 +7,7 @@ export const siteConfig = {
   // MODE VACANCES - Canvia això per activar/desactivar
   // ===========================================
   vacation: {
-    enabled: true,                          // true = mostrar banner, false = ocultar
+    enabled: false,                         // true = mostrar banner, false = ocultar
     returnDate: "13 de Febrer",             // Data de tornada
     message: "Estem de vacances! Ens veiem aviat."  // Missatge personalitzat
   },

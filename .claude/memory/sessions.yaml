@@ -1,0 +1,62 @@
+---
+type: sessions_history
+project: unknown
+created: 2026-01-08T19:34:09.607Z
+total_sessions:
+  - id: "20260208-168"
+    date: 2026-02-08
+    started: 2026-01-08T00:00:00.000Z
+    ended: 2026-02-08T17:41:07.168Z
+    task: "Sessió completada: URL SmartMenu configurada i desplegada."
+    phase: VALIDATE
+    files_modified: 5
+    files_list:
+      - src/components/CookieConsent.astro (nou)
+      - src/components/GoogleAnalytics.astro (nou)
+      - src/config/site.ts (afegit analytics i cookies config)
+      - src/layouts/Layout.astro (integrat components)
+      - public/llms.txt (nou)
+    decisions:
+      - "URL SmartMenu Agora configurada: https://smartmenu.agorapos.com/?id=k4mrr39a&workplaceId=kfufktzc"
+      - "Confirmat: Agora bloqueja comandes si no hi ha jornada oberta"
+      - "Mode vacances es manté fins divendres 13 febrer al matí"
+    summary: "Sessió completada"
+
+  - id: "20260113-65"
+    date: 2026-01-13
+    started: 2026-01-08T00:00:00.000Z
+    ended: 2026-01-13T18:40:29.065Z
+    task: "Sessió completada: cookies, GA4, llms.txt i SEO configurat."
+    phase: VALIDATE
+    files_modified: 5
+    files_list:
+      - src/components/CookieConsent.astro (nou)
+      - src/components/GoogleAnalytics.astro (nou)
+      - src/config/site.ts (afegit analytics i cookies config)
+      - src/layouts/Layout.astro (integrat components)
+      - public/llms.txt (nou)
+    decisions:
+      - "Cookie consent simple (acceptar/rebutjar)"
+      - "GA4 condicionat al consentiment (GDPR compliant)"
+      - "ID GA4: G-78HVRXVX7D"
+      - "Afegit llms.txt per visibilitat a LLMs"
+    summary: "Sessió completada"
+ 2
+---
+
+sessions:
+  - id: "20260108-607"
+    date: 2026-01-08
+    started: 2026-01-08T00:00:00.000Z
+    ended: 2026-01-08T19:34:09.607Z
+    task: "Web millorada amb branding real, imatges i dades correctes. Pendent revisar localment."
+    phase: VALIDATE
+    files_modified: 0
+    files_list:
+      - (cap)
+    decisions:
+      - "Discovery completat"
+      - "Stack confirmat: Astro"
+      - "Integració SmartMenu Agora confirmada"
+    summary: "Sessió completada"
+

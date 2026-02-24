@@ -1,0 +1,32 @@
+---
+type: context_memory
+project: Frankfurt la Torre 2 - Web
+compiled: 2026-01-08T19:34:09.612Z
+tokens_estimate: 58
+---
+
+# Context: Frankfurt la Torre 2 - Web
+
+summary: |
+  Landing page moderna per Frankfurt la Torre 2 (Pineda de Mar) amb integració SmartMenu Agora per gestionar comandes online amb recollida al local.
+
+## Estat Actual
+
+current_phase: VALIDATE
+current_task: Web millorada amb branding real, imatges i dades correctes. Pendent revisar localment.
+last_session: 2026-01-08
+
+## Decisions Clau
+
+key_decisions:
+  - Cap decisió registrada
+
+## Fitxers Importants
+
+key_files:
+  - Cap fitxer modificat
+
+## Decisions Sessió Actual
+
+session_decisions:
+  - Cap decisió aquesta sessió

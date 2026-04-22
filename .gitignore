@@ -22,3 +22,8 @@ npm-debug.log*
 
 # Astro
 .astro/
+
+# Marketing scripts runtime
+marketing/__pycache__/
+marketing/cache/
+marketing/output/

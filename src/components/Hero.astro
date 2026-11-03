@@ -1,4 +1,7 @@
 ---
+import { responsiveImage } from '../utils/images';
+const bgLogo = responsiveImage('/logo1Web.png');
+const mascot = responsiveImage('/ninotfrankfurtWeb.png');
 interface Props {
   ctaUrl?: string;
 }
@@ -8,7 +11,7 @@ const { ctaUrl = "#" } = Astro.props;
 
 <section class="hero" id="hero">
   <div class="hero-bg">
-    <img src="/logo1Web.png" alt="" class="hero-bg-logo" aria-hidden="true" />
+    <picture><source type="image/avif" srcset={bgLogo.avif} sizes="(max-width: 1000px) 80vw, 800px" /><img src={bgLogo.src} srcset={bgLogo.webp} sizes="(max-width: 1000px) 80vw, 800px" width={bgLogo.width} height={bgLogo.height} alt="" class="hero-bg-logo" aria-hidden="true" decoding="async" /></picture>
   </div>
   <div class="container hero-content">
     <div class="hero-text">
@@ -34,7 +37,7 @@ const { ctaUrl = "#" } = Astro.props;
       </div>
     </div>
     <div class="hero-image">
-      <img src="/ninotfrankfurtWeb.png" alt="Mascota Frankfurt La Torre 2" class="mascot" />
+      <picture><source type="image/avif" srcset={mascot.avif} sizes="(max-width: 768px) 350px, 400px" /><img src={mascot.src} srcset={mascot.webp} sizes="(max-width: 768px) 350px, 400px" width={mascot.width} height={mascot.height} alt="Mascota Frankfurt La Torre 2" class="mascot" fetchpriority="high" /></picture>
     </div>
   </div>
 </section>

@@ -1,4 +1,6 @@
 ---
+import { responsiveImage } from '../utils/images';
+const logo = responsiveImage('/logo1Web.png');
 
 ---
 
@@ -64,7 +66,7 @@
       </div>
 
       <div class="about-image">
-        <img src="/logo1Web.png" alt="La Torre 2 - Des de 1992" class="about-logo" />
+        <picture><source type="image/avif" srcset={logo.avif} sizes="350px" /><img src={logo.src} srcset={logo.webp} sizes="350px" width={logo.width} height={logo.height} alt="La Torre 2 - Des de 1992" class="about-logo" loading="lazy" decoding="async" /></picture>
       </div>
     </div>
   </div>

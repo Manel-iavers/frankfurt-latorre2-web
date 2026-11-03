@@ -178,3 +178,13 @@ img {
   white-space: nowrap;
   border: 0;
 }
+
+/* Els <picture> d'imatges responsives no creen caixa pròpia: l'<img> de dins
+   es maqueta igual que quan anava sola. */
+picture {
+  display: contents;
+}
+
+picture > source {
+  display: none;
+}

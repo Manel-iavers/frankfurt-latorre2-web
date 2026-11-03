@@ -33,3 +33,7 @@ marketing/output/
 
 # Wrangler
 .wrangler/
+
+# Playwright
+test-results/
+playwright-report/

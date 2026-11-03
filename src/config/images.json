@@ -1,0 +1,138 @@
+{
+  "/images/bacoWeb.png": {
+    "width": 1536,
+    "height": 1024,
+    "widths": [
+      400,
+      800
+    ]
+  },
+  "/images/bikiniWeb.png": {
+    "width": 1536,
+    "height": 1024,
+    "widths": [
+      400,
+      800
+    ]
+  },
+  "/images/bratwurstWeb.png": {
+    "width": 1536,
+    "height": 1024,
+    "widths": [
+      400,
+      800
+    ]
+  },
+  "/images/burguerWeb.png": {
+    "width": 1536,
+    "height": 1024,
+    "widths": [
+      400,
+      800
+    ]
+  },
+  "/images/cervelaweb.png": {
+    "width": 1536,
+    "height": 1024,
+    "widths": [
+      400,
+      800
+    ]
+  },
+  "/images/formatgeWeb.png": {
+    "width": 1536,
+    "height": 1024,
+    "widths": [
+      400,
+      800
+    ]
+  },
+  "/images/frankfurtweb.png": {
+    "width": 1536,
+    "height": 1024,
+    "widths": [
+      400,
+      800
+    ]
+  },
+  "/images/llomWeb.png": {
+    "width": 1536,
+    "height": 1024,
+    "widths": [
+      400,
+      800
+    ]
+  },
+  "/images/malaguenyaWeb.png": {
+    "width": 1536,
+    "height": 1024,
+    "widths": [
+      400,
+      800
+    ]
+  },
+  "/images/pikantWeb.png": {
+    "width": 1536,
+    "height": 1024,
+    "widths": [
+      400,
+      800
+    ]
+  },
+  "/images/pinxoWeb.png": {
+    "width": 1536,
+    "height": 1024,
+    "widths": [
+      400,
+      800
+    ]
+  },
+  "/images/pollastreWeb.png": {
+    "width": 1536,
+    "height": 1024,
+    "widths": [
+      400,
+      800
+    ]
+  },
+  "/images/truitaWeb.png": {
+    "width": 1536,
+    "height": 1024,
+    "widths": [
+      400,
+      800
+    ]
+  },
+  "/images/xoriWeb.png": {
+    "width": 1536,
+    "height": 1024,
+    "widths": [
+      400,
+      800
+    ]
+  },
+  "/ninotfrankfurtWeb.png": {
+    "width": 1024,
+    "height": 1024,
+    "widths": [
+      400,
+      800
+    ]
+  },
+  "/logo1Web.png": {
+    "width": 1536,
+    "height": 1024,
+    "widths": [
+      480,
+      960,
+      1536
+    ]
+  },
+  "/faviconWeb.png": {
+    "width": 1024,
+    "height": 1024,
+    "widths": [
+      100
+    ]
+  }
+}

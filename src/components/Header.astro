@@ -1,4 +1,6 @@
 ---
+import { responsiveImage } from '../utils/images';
+const logo = responsiveImage('/faviconWeb.png');
 interface Props {
   ctaUrl?: string;
 }
@@ -9,7 +11,7 @@ const { ctaUrl = "#" } = Astro.props;
 <header class="header">
   <div class="container header-content">
     <a href="/" class="logo">
-      <img src="/faviconWeb.png" alt="La Torre 2" class="logo-img" />
+      <picture><source type="image/avif" srcset={logo.avif} sizes="50px" /><img src={logo.src} srcset={logo.webp} sizes="50px" width={logo.width} height={logo.height} alt="La Torre 2" class="logo-img" decoding="async" /></picture>
       <span class="logo-text">La Torre 2</span>
     </a>
     <nav class="nav" id="main-nav">

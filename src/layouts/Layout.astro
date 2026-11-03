@@ -13,7 +13,9 @@ const {
   description = "Frankfurt la Torre 2 - Els millors frankfurts de Pineda de Mar. Fes la teva comanda online i recull al local."
 } = Astro.props;
 
-const siteUrl = "https://frankfurtlatorre2.com";
+const siteUrl = Astro.site!.origin;
+// URL canònica de la pàgina actual, sense barra final (excepte la portada)
+const canonicalUrl = new URL(Astro.url.pathname.replace(/(.)\/$/, '$1'), Astro.site).href;
 
 // Schema.org per Restaurant Local
 const schemaOrg = {
@@ -99,7 +101,7 @@ const faqSchema = {
     <meta name="description" content={description} />
 
     <!-- SEO -->
-    <link rel="canonical" href={siteUrl} />
+    <link rel="canonical" href={canonicalUrl} />
     <meta name="robots" content="index, follow" />
     <meta name="author" content="Frankfurt la Torre 2" />
     <meta name="geo.region" content="ES-CT" />
@@ -113,7 +115,7 @@ const faqSchema = {
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
-    <meta property="og:url" content={siteUrl} />
+    <meta property="og:url" content={canonicalUrl} />
     <meta property="og:locale" content="ca_ES" />
     <meta property="og:site_name" content="Frankfurt la Torre 2" />
 

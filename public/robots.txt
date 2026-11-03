@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://frankfurtlatorre2.com/sitemap-index.xml
+Sitemap: https://www.latorre2.com/sitemap-index.xml

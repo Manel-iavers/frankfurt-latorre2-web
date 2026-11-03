@@ -1,0 +1,29 @@
+{
+  // Desplegament a Cloudflare Workers amb assets estàtics (substitueix Vercel).
+  //
+  // El web és 100 % estàtic (Astro sense adaptador): no hi ha cap endpoint ni
+  // funció de servidor, així que el Worker no porta codi (`main`) i només serveix
+  // `dist/`. Per això no cal `@astrojs/cloudflare`, a diferència d'iaversweb, que
+  // el necessita per a /api/contacte.
+  "$schema": "https://unpkg.com/wrangler@4.125.0/config-schema.json",
+  "name": "frankfurt-latorre2-web",
+  "compatibility_date": "2026-01-14",
+
+  "assets": {
+    "directory": "./dist",
+    // Els enllaços interns apunten a /carta (sense barra final): així /carta
+    // respon 200 directament i /carta/ redirigeix a /carta. Vercel servia totes
+    // dues amb 200, que és contingut duplicat.
+    "html_handling": "drop-trailing-slash",
+    "not_found_handling": "none"
+  },
+
+  // Sense `routes` a posta: de moment només es publica a *.workers.dev. El
+  // Custom Domain sobre www.latorre2.com s'afegeix quan el Manel mogui el DNS
+  // (Fase 2 de la migració).
+  "workers_dev": true,
+
+  "observability": {
+    "enabled": true
+  }
+}

@@ -27,3 +27,9 @@ npm-debug.log*
 marketing/__pycache__/
 marketing/cache/
 marketing/output/
+
+# Línia base de la migració a Cloudflare (local)
+.migracio/
+
+# Wrangler
+.wrangler/

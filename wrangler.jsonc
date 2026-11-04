@@ -18,9 +18,13 @@
     "not_found_handling": "none"
   },
 
-  // Sense `routes` a posta: de moment només es publica a *.workers.dev. El
-  // Custom Domain sobre www.latorre2.com s'afegeix quan el Manel mogui el DNS
-  // (Fase 2 de la migració).
+  // Custom Domain sobre www, el domini canònic (`site:` a astro.config.mjs). El
+  // Worker passa a ser l'origen i Cloudflare gestiona el registre DNS i el
+  // certificat. L'àpex no és aquí: latorre2.com redirigeix a www amb una
+  // Redirect Rule de la zona.
+  "routes": [
+    { "pattern": "www.latorre2.com", "custom_domain": true }
+  ],
   "workers_dev": true,
 
   "observability": {

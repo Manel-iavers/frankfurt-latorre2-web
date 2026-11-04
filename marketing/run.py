@@ -7,19 +7,16 @@ Frankfurt La Torre 2 — Llançador de cartells.
   python3 run.py --list                 # Mostra els cartells disponibles
 
 Requeriments:
-  pip3 install httpx Pillow
-  export FREEPIK_API_KEY=...
+  pip3 install Pillow
 """
 from __future__ import annotations
 
 import asyncio
-import base64
 import os
 import sys
 from io import BytesIO
 from pathlib import Path
 
-import httpx
 from PIL import Image, ImageDraw, ImageFilter, ImageFont
 
 from brand import LOGO_PATH, MASCOT_PATH, PALETTES, FONT_HEADING, FONT_BODY, FOOTER_LEFT, FOOTER_RIGHT
@@ -31,42 +28,67 @@ CACHE  = ROOT / "cache"
 OUTPUT.mkdir(parents=True, exist_ok=True)
 CACHE.mkdir(parents=True, exist_ok=True)
 
-FREEPIK_ENDPOINT = "https://api.freepik.com/v1/ai/text-to-image"
+# ── Fons ──────────────────────────────────────────────────────────────────────
+# Fins al 27/08/2026 aquí es cridava `api.freepik.com` amb FREEPIK_API_KEY.
+# Aquella clau va acabar commitada al repo de llull-v3 i encara és a la seva
+# història de git, o sigui que s'havia de retirar.
+#
+# La substituta d'IAvers per a generació visual és Magnific, i Magnific NO és
+# una API amb clau: és un MCP amb OAuth de claude.ai. Un script autònom no la
+# pot cridar. Per tant això ja no genera imatges: les CONSUMEIX. Qui les genera
+# és una sessió de Claude amb Magnific, que les deixa a `cache/`.
+#
+# Propietat nova i volguda: un cop generat un fons, el cartell es pot refer
+# infinites vegades sense xarxa, sense claus i sense ningú.
+
+CACHE_ENTRADA = CACHE / "pendents"
+EXTENSIONS = (".jpg", ".jpeg", ".png", ".webp")
 
 
-# ── Freepik ───────────────────────────────────────────────────────────────────
+class FonsAbsent(RuntimeError):
+    """Falta la imatge de fons. Un error que no diu com sortir-ne és mig error."""
 
-async def freepik_flux(prompt: str, aspect: str = "square_1_1") -> bytes:
-    api_key = os.environ.get("FREEPIK_API_KEY")
-    if not api_key:
-        raise RuntimeError("FREEPIK_API_KEY no definida.")
-    payload = {"prompt": prompt, "num_images": 1, "image": {"size": aspect}}
-    headers = {"Content-Type": "application/json", "x-freepik-api-key": api_key}
-    async with httpx.AsyncClient(timeout=120.0) as client:
-        resp = await client.post(FREEPIK_ENDPOINT, headers=headers, json=payload)
-        if resp.status_code != 200:
-            raise RuntimeError(f"Freepik error {resp.status_code}: {resp.text[:400]}")
-        data   = resp.json()
-        images = data.get("data") or []
-        if not images:
-            raise RuntimeError(f"Cap imatge rebuda: {str(data)[:400]}")
-        first = images[0]
-        if first.get("base64"):
-            return base64.b64decode(first["base64"])
-        if first.get("url"):
-            img_resp = await client.get(first["url"])
-            return img_resp.content
-        raise RuntimeError(f"Format no reconegut: {str(first)[:200]}")
+    def __init__(self, clau: str, desti: Path):
+        self.clau, self.desti = clau, desti
+        super().__init__(
+            f"falta el fons «{clau}». Genera'l amb Magnific i desa'l a {desti}"
+        )
+
+
+def _normalitza(origen: Path, desti: Path) -> bytes:
+    """Magnific torna PNG o WebP segons el model; la resta del pipeline vol JPEG."""
+    with Image.open(origen) as img:
+        img.convert("RGB").save(desti, "JPEG", quality=92)
+    return desti.read_bytes()
 
 
 async def get_bg_cached(cache_key: str, prompt: str, aspect: str = "square_1_1") -> bytes:
-    cache_file = CACHE / f"{cache_key}.jpg"
-    if cache_file.exists():
+    fitxer = CACHE / f"{cache_key}.jpg"
+    if fitxer.exists():
         print(f"  (cache hit: {cache_key})")
-        return cache_file.read_bytes()
-    bg_bytes = await freepik_flux(prompt, aspect=aspect)
-    cache_file.write_bytes(bg_bytes)
-    return bg_bytes
+        return fitxer.read_bytes()
+
+    # Safata d'entrada: qualsevol imatge deixada a cache/pendents/ amb el nom
+    # de la clau s'adopta sola. És el camí que fa servir una sessió de Claude.
+    if CACHE_ENTRADA.is_dir():
+        for ext in EXTENSIONS:
+            candidat = CACHE_ENTRADA / f"{cache_key}{ext}"
+            if candidat.exists():
+                dades = _normalitza(candidat, fitxer)
+                candidat.unlink()
+                print(f"  (fons adoptat de pendents/: {cache_key})")
+                return dades
+
+    # El prompt es deixa al costat d'on ha d'anar la imatge: així no cal
+    # tornar-lo a buscar al jobs.py per generar-la.
+    fitxer.with_suffix(".prompt.txt").write_text(
+        f"# Fons pendent: {cache_key}\n"
+        f"# Genera'l amb Magnific i desa'l a: {fitxer}\n"
+        f"# (o deixa'l a {CACHE_ENTRADA}/{cache_key}.png i s'adoptarà sol)\n"
+        f"# aspect: {aspect}\n\n{prompt}\n",
+        encoding="utf-8",
+    )
+    raise FonsAbsent(cache_key, fitxer)
 
 
 # ── Composició ────────────────────────────────────────────────────────────────
@@ -178,7 +200,8 @@ def compose_poster(
 
 # ── Main ──────────────────────────────────────────────────────────────────────
 
-async def generate_batch(only: list[str] | None = None) -> None:
+async def generate_batch(only: list[str] | None = None) -> list["FonsAbsent"]:
+    pendents: list[FonsAbsent] = []
     for job in JOBS:
         if only and not any(k in job["file"] for k in only):
             continue
@@ -190,7 +213,15 @@ async def generate_batch(only: list[str] | None = None) -> None:
         cache_key   = job["file"].replace(".jpg", "")
 
         print(f"→ Generant {job['title_top']} {job['title_bottom']}...")
-        bg_bytes = await get_bg_cached(cache_key, job["prompt"], aspect=aspect)
+        try:
+            bg_bytes = await get_bg_cached(cache_key, job["prompt"], aspect=aspect)
+        except FonsAbsent as absent:
+            # Un fons que falta no atura la tanda: si petés al primer, generar
+            # 20 cartells nous voldria dir 20 execucions descobrint-ne un cada
+            # cop. Així una sola passada et diu tot el que has de generar.
+            print(f"  ⏸ falta el fons ({cache_key})")
+            pendents.append(absent)
+            continue
         poster = compose_poster(
             bg_bytes=bg_bytes,
             size=size,
@@ -204,6 +235,16 @@ async def generate_batch(only: list[str] | None = None) -> None:
         out = OUTPUT / job["file"]
         poster.save(out, "JPEG", quality=92)
         print(f"  ✓ {out}")
+
+    if pendents:
+        print(f"\n⏸ {len(pendents)} fons per generar amb Magnific:")
+        for p in pendents:
+            print(f"   · {p.clau}  →  {p.desti}")
+        print(
+            "\n   Els prompts són als .prompt.txt del costat. Un cop hi siguin les "
+            "imatges,\n   torna a executar-ho i es compondran sense tocar cap xarxa."
+        )
+    return pendents
 
 
 if __name__ == "__main__":

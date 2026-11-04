@@ -16,7 +16,10 @@ export default defineConfig({
     { name: 'desktop', use: { ...devices['Desktop Chrome'] } },
   ],
   webServer: {
-    command: 'npx astro preview --host 127.0.0.1 --port 4321',
+    // --ignore-lock força el primer pla: Astro 7 posa `astro preview` en segon
+    // pla quan detecta que l'executa un agent d'IA, i Playwright ho veu com que
+    // el servidor ha caigut.
+    command: 'npx astro preview --host 127.0.0.1 --port 4321 --ignore-lock',
     url: 'http://127.0.0.1:4321',
     reuseExistingServer: !process.env.CI,
   },

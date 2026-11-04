@@ -10,8 +10,8 @@
     "test:e2e": "playwright test"
   },
   "dependencies": {
-    "@astrojs/sitemap": "^3.6.1",
-    "astro": "^5.0.0"
+    "@astrojs/sitemap": "^3.7.4",
+    "astro": "^7.4.1"
   },
   "devDependencies": {
     "@playwright/test": "^1.56.1"
